@@ -15,6 +15,14 @@ namespace Blog_EC.Data.Mappings
         {
             // Tabela
             builder.ToTable("Category");
+
+            // Chave Primária
+            builder.HasKey(x => x.Id);
+
+            // Identity
+            builder.Property(x => x.Id)
+                .ValueGeneratedOnAdd()
+                .UseIdentityColumn(); // Primary Key Identity (1, 1)
         }
     }
 }
