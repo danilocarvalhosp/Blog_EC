@@ -30,13 +30,21 @@ using (var context = new BlogDataContext())
     //}
 
     // ASNOTRACKING
-        // Leitura sempre com ASNOTRACKING / Não utilizar com UPDATE e DELETE
-    var tags = context
+    // Leitura sempre com ASNOTRACKING / Não utilizar com UPDATE e DELETE
+    //var tags = context
+    //    .Tags
+    //    .AsNoTracking ()
+    //    .ToList();
+    //foreach (var item in tags)
+    //{
+    //    Console.WriteLine(item.Name);
+    //}
+
+    // FIRST e SINGLE
+    var tag = context
         .Tags
-        .AsNoTracking ()
-        .ToList();
-    foreach (var item in tags)
-    {
-        Console.WriteLine(item.Name);
-    }
+        .AsNoTracking()
+        // .Single(x => x.Id == 2);
+        .FirstOrDefault(x => x.Id == 2);
+    Console.WriteLine(tag?.Name);
 }
