@@ -1,4 +1,5 @@
-﻿using Blog_EC.Models;
+﻿using Blog_EC.Data.Mappings;
+using Blog_EC.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,13 @@ namespace Blog_EC.Data
         {
             options.UseSqlServer(@"Server=localhost,1433;Database=Blog_EC;User ID=sa;Password=Dan@8257;Trusted_Connection=False; TrustServerCertificate=True;");
             //options.LogTo(Console.WriteLine);
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new CategoryMap());
+            modelBuilder.ApplyConfiguration(new UserMap());
+            modelBuilder.ApplyConfiguration(new PostMap());
         }
     }
 }
