@@ -14,6 +14,7 @@ namespace Blog_EC.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<PostWithTagsCount> PostWithTagsCount { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
@@ -26,6 +27,15 @@ namespace Blog_EC.Data
             modelBuilder.ApplyConfiguration(new CategoryMap());
             modelBuilder.ApplyConfiguration(new UserMap());
             modelBuilder.ApplyConfiguration(new PostMap());
+
+            modelBuilder.Entity<PostWithTagsCount>().HasNoKey();
+            modelBuilder.Entity<PostWithTagsCount>(x =>
+            {
+                x.ToSqlQuery(@"
+                    SELECT P.Title as [Name], COUNT(PT.TagId) as 'Count' FROM [Post] P
+                    INNER JOIN [PostTag] PT ON PT.PostId = P.Id
+                    GROUP BY P.Title");
+            });
         }
     }
 }
