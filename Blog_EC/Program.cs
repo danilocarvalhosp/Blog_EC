@@ -38,13 +38,28 @@ using var context = new BlogDataContext();
 //context.SaveChanges();
 #endregion
 
-var posts = context
+#region Include
+//var posts = context
+//    .Posts
+//    .AsNoTracking()
+//    .Include(x => x.Author)
+//    .Include(x => x.Category)
+//    .OrderByDescending(x => x.LastUpdateDate)
+//    .ToList();
+
+//foreach (var post in posts)
+//    Console.WriteLine($"{post.Title} escrito por {post.Author?.Name} em {post.Category?.Name}");
+#endregion
+
+var post = context
     .Posts
-    .AsNoTracking()
+    //.AsNoTracking()
     .Include(x => x.Author)
     .Include(x => x.Category)
-    .OrderByDescending(x => x.LastUpdateDate)
-    .ToList();
+    .OrderBy(x => x.LastUpdateDate)
+    .FirstOrDefault(); // TOP 1
 
-foreach (var post in posts)
-    Console.WriteLine($"{post.Title} escrito por {post.Author?.Name} em {post.Category?.Name}");
+post.Author.Name = "Teste";
+
+context.Posts.Update(post);
+context.SaveChanges();    
