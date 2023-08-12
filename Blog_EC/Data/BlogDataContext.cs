@@ -15,6 +15,9 @@ namespace Blog_EC.Data
         public DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlServer(@"Server=localhost,1433;Database=Blog_EC;User ID=sa;Password=Dan@8257;Trusted_Connection=False; TrustServerCertificate=True;");
+        {
+            options.UseSqlServer(@"Server=localhost,1433;Database=Blog_EC;User ID=sa;Password=Dan@8257;Trusted_Connection=False; TrustServerCertificate=True;");
+            //options.LogTo(Console.WriteLine);
+        }
     }
 }
