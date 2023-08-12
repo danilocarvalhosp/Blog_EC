@@ -17,7 +17,14 @@ using (var context = new BlogDataContext())
     //context.SaveChanges();
 
     // DELETE
-    var tag = context.Tags.FirstOrDefault(x => x.Id == 1);
-    context.Remove(tag);
-    context.SaveChanges();
+    //var tag = context.Tags.FirstOrDefault(x => x.Id == 1);
+    //context.Remove(tag);
+    //context.SaveChanges();
+
+    // TOLIST
+    var tags = context.Tags.ToList();
+    foreach (var item in tags)
+    {
+        Console.WriteLine(item.Name);
+    }
 }
